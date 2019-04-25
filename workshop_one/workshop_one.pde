@@ -5,6 +5,13 @@ PGraphics canvas_image;
 PGraphics canvas_trans;
 PImage image; 
 
+float[][] edgeDetection = {{0, 1, 0}, {1, -4, 1}, {0,1,0}};
+float[][] edgeDetection2 = {{-1, -1, -1}, {-1, 8, -1}, {-1,-1,-1}};
+float[][] sharpen = {{0, -1, 0}, {-1, 5, -1}, {0,-1,0}};
+float[][] boxBlur = {{0, -1, 0}, {-1, 5, -1}, {0,-1,0}};
+float[][] gaussianBlur = {{0.2222, 0.2222, 0.2222}, {0.2222, 0.2222, 0.2222}, {0.2222, 0.2222, 0.2222}};
+// int[][] gaussianBlur5 = {{1/9, 1/9, 1/9}, {1/9, 1/9, 1/9}, {1/9,1/9,1/9}};
+
 void setup() {
   size(1050, 600);
   canvas_image = createGraphics(450, 450);
@@ -17,6 +24,7 @@ void setup() {
   canvas_image.endDraw();
   canvas_trans = createGraphics(450, 450);
   image(canvas_image, 50, 50);  
+  ConvolutionMask(canvas_image, image, gaussianBlur);
 }
 
 /*void draw() {
@@ -43,28 +51,26 @@ void ScaleOfGray(PGraphics canvas, PImage image) {
   image(canvas, 550, 50);
 }
 
-void ConvolutionMask(PGraphics canvas, PImage image) {
+void ConvolutionMask(PGraphics canvas, PImage image, float[][] convolutionMask) {
   canvas.beginDraw();
   PImage image_with_mask;
   image_with_mask = createImage(image.width, image.height, RGB);
-  int[][] convolutionMask = {{0, 1, 0}, {1, -4, 1}, {0,1,0}};
-  for(int i = 0; i < image.width; i++){
-    for(int j = 0; j < image.height; j++) {
+  for(int i = 0; i < image.height; i++){
+    for(int j = 0; j < image.width; j++) {
       int avgR = 0, avgG = 0, avgB = 0;
       for(int n = 0; n < convolutionMask.length; n++) {
         for(int m = 0; m < convolutionMask[0].length; m++) {
           int x = i + n - convolutionMask.length/2;
           int y = j + m - convolutionMask.length/2;
-          if( x < image.width && x >= 0 && y < image.height && y >= 0) {
+          if( x < image.height && x >= 0 && y < image.width && y >= 0) {  
             int index = x * image.width + y;
-            println(index);
-            avgR += red(image.pixels[index]) * convolutionMask[n][m];
-            avgG += green(image.pixels[index]) * convolutionMask[n][m];
-            avgB += blue(image.pixels[index]) * convolutionMask[n][m];
-            image_with_mask.pixels[index] = color(avgR, avgG, avgB);
+            avgR += int(red(image.pixels[index]) * convolutionMask[n][m]);
+            avgG += int(green(image.pixels[index]) * convolutionMask[n][m]);
+            avgB += int(blue(image.pixels[index]) * convolutionMask[n][m]);
           }
         }
-      }      
+      }
+      image_with_mask.pixels[i * image.width + j] = color(avgR, avgG, avgB);
     }
   }
   image_with_mask.updatePixels();
@@ -75,6 +81,6 @@ void ConvolutionMask(PGraphics canvas, PImage image) {
 
 void draw() {
   // ScaleOfGray(canvas_image, image);
-  ConvolutionMask(canvas_image, image);
+  // ConvolutionMask(canvas_image, image);
 }
  
