@@ -1,9 +1,10 @@
 import processing.video.*;
 
-Movie video;
-PGraphics canvas_image;
+PGraphics canvas_initial;
 PGraphics canvas_trans;
-PImage image; 
+
+PImage image;
+Movie video;
 
 float[][] edgeDetection = {{0, 1, 0}, {1, -4, 1}, {0,1,0}};
 float[][] edgeDetection2 = {{-1, -1, -1}, {-1, 8, -1}, {-1,-1,-1}};
@@ -12,20 +13,31 @@ float[][] boxBlur = {{0, -1, 0}, {-1, 5, -1}, {0,-1,0}};
 float[][] gaussianBlur = {{0.1111, 0.1111, 0.1111}, {0.1111, 0.1111, 0.1111}, {0.1111, 0.1111, 0.1111}};
 // int[][] gaussianBlur5 = {{1/9, 1/9, 1/9}, {1/9, 1/9, 1/9}, {1/9,1/9,1/9}};
 
+boolean showImage = true;
+boolean showGray = true;
+boolean showMask = false;
+boolean showHisto = false;
+
+void chargeMedia(boolean media, PGraphics canvas) {
+  canvas.beginDraw();
+  if(media) {
+    image = loadImage("Leopard.jpg");
+    image.loadPixels();
+    canvas.image(image, 0, 0, 450, 450);
+  } else {
+    video = new Movie(this, "Landscape.mp4");
+    canvas.image(video, 0, 0, 450, 450);
+    video.play();
+  }
+  canvas.endDraw();
+  image(canvas, 50, 50);
+}
+
 void setup() {
   size(1050, 600);
-  canvas_image = createGraphics(450, 450);
-  canvas_image.beginDraw();
-  /*image = loadImage("Leopard.jpg");
-  image.loadPixels();
-  canvas_image.image(image, 0, 0, 450, 450);*/
-  
-  video = new Movie(this, "Landscape.mp4");
-  canvas_image.image(video, 0, 0, 450, 450);
-  video.play();
-  canvas_image.endDraw();
+  canvas_initial = createGraphics(450, 450);
   canvas_trans = createGraphics(450, 450);
-  image(canvas_image, 50, 50);
+  chargeMedia(showImage, canvas_initial);
 }
 
 
@@ -74,14 +86,32 @@ void ConvolutionMask(PGraphics canvas, PImage image, float[][] convolutionMask) 
   image(canvas, 550, 50);
 }
 
-
+void movieEvent(Movie m) {
+  m.read();
+  m.loadPixels();
+  canvas_trans.beginDraw();
+  PImage image_gray;
+  image_gray = createImage(m.width, m.height, RGB);
+  image_gray.loadPixels();
+  for (int i = 0; i < m.pixels.length; i++) {
+    float green = green(m.pixels[i]);
+    float blue = blue(m.pixels[i]);
+    float red = red(m.pixels[i]);
+    image_gray.pixels[i] = color((green + blue + red)/3);
+  }
+  image_gray.updatePixels();
+  canvas_trans.image(image_gray, 0, 0, 450, 450);
+  canvas_trans.endDraw();
+  image(canvas_trans, 550, 50);
+}
 
 void draw() {
-  // ScaleOfGray(canvas_image, image);
-  // ConvolutionMask(canvas_image, image);
-  canvas_image.beginDraw();
-  canvas_image.image(video, 0, 0, 450, 450);
-  canvas_image.endDraw();
-  image(canvas_image, 50, 50);
+  // ScaleOfGray(canvas_initial, image);
+  // ConvolutionMask(canvas_initial, image);
+  if (!showImage) {
+    canvas_initial.beginDraw();
+    canvas_initial.image(video, 0, 0, 450, 450);
+    canvas_initial.endDraw();
+    image(canvas_initial, 50, 50);
+  }
 }
- 
