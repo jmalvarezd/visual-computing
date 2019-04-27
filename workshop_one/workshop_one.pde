@@ -14,7 +14,7 @@ float[][] gaussianBlur = {{0.1111, 0.1111, 0.1111}, {0.1111, 0.1111, 0.1111}, {0
 // int[][] gaussianBlur5 = {{1/9, 1/9, 1/9}, {1/9, 1/9, 1/9}, {1/9,1/9,1/9}};
 
 boolean showImage = true;
-boolean showGray = true;
+boolean showGray = false;
 boolean showMask = false;
 boolean showHisto = false;
 
@@ -88,30 +88,56 @@ void ConvolutionMask(PGraphics canvas, PImage image, float[][] convolutionMask) 
 
 void movieEvent(Movie m) {
   m.read();
-  m.loadPixels();
-  canvas_trans.beginDraw();
-  PImage image_gray;
-  image_gray = createImage(m.width, m.height, RGB);
-  image_gray.loadPixels();
-  for (int i = 0; i < m.pixels.length; i++) {
-    float green = green(m.pixels[i]);
-    float blue = blue(m.pixels[i]);
-    float red = red(m.pixels[i]);
-    image_gray.pixels[i] = color((green + blue + red)/3);
+  if(showGray) {
+    m.loadPixels();
+    ScaleOfGray(canvas_trans, m);
   }
-  image_gray.updatePixels();
-  canvas_trans.image(image_gray, 0, 0, 450, 450);
-  canvas_trans.endDraw();
-  image(canvas_trans, 550, 50);
+  if(showMask) {
+    m.loadPixels();
+    ConvolutionMask(canvas_trans, m, edgeDetection2);
+    m.stop();
+  }
 }
 
+
 void draw() {
-  // ScaleOfGray(canvas_initial, image);
-  // ConvolutionMask(canvas_initial, image);
   if (!showImage) {
     canvas_initial.beginDraw();
     canvas_initial.image(video, 0, 0, 450, 450);
     canvas_initial.endDraw();
     image(canvas_initial, 50, 50);
+  }
+}
+
+void keyPressed() {
+  if(key == 'm') {
+    showImage = false;
+    showGray = false;
+    showMask = false;
+    showHisto = false;
+    canvas_trans = createGraphics(450, 450);
+    chargeMedia(showImage, canvas_initial);
+  }
+  if(key == 'i') {
+    showImage = true;
+    showGray = false;
+    showMask = false;
+    showHisto = false;
+    canvas_trans = createGraphics(450, 450);
+    chargeMedia(showImage, canvas_initial);
+  }
+  if(key == 'g') {
+    showGray = true;
+    showMask = false;
+    showHisto = false;
+    if(showImage) ScaleOfGray(canvas_trans, image);
+    //Video will be process in movieEvent
+  }
+  if(key == 'c') {
+    showMask = true;
+    showGray = false;
+    showHisto = false;
+    if(showImage) ConvolutionMask(canvas_trans, image, edgeDetection2);
+    //Video will be process in movieEvent
   }
 }
