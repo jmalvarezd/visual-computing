@@ -11,8 +11,14 @@ float[][] edgeDetection = {{0, 1, 0}, {1, -4, 1}, {0,1,0}};
 float[][] edgeDetection2 = {{-1, -1, -1}, {-1, 8, -1}, {-1,-1,-1}};
 float[][] sharpen = {{0, -1, 0}, {-1, 5, -1}, {0,-1,0}};
 float[][] boxBlur = {{0.1111, 0.1111, 0.1111}, {0.1111, 0.1111, 0.1111}, {0.1111, 0.1111, 0.1111}};
-float[][] gaussianBlur = {{0.1111, 0.1111, 0.1111}, {0.1111, 0.1111, 0.1111}, {0.1111, 0.1111, 0.1111}};
-// int[][] gaussianBlur5 = {{1/9, 1/9, 1/9}, {1/9, 1/9, 1/9}, {1/9,1/9,1/9}};
+float[][] gaussianBlur = {{0.0625, 0.125, 0.0625}, {0.125, 0.25, 0.125}, {0.0625, 0.125, 0.0625}};
+float[][] gaussianBlur5 = {
+  {0.00390625, 0.015625, 0.0234375, 0.015625, 0.00390625}, 
+  {0.015625, 0.0625, 0.09375, 0.0625, 0.015625}, 
+  {0.0234375, 0.09375, 0.125, 0.09375, 0.0234375}, 
+  {0.015625, 0.0625, 0.09375, 0.0625, 0.015625},
+  {0.00390625, 0.015625, 0.0234375, 0.015625, 0.00390625}
+};
 
 boolean showImage = true;
 boolean showGray = false;
@@ -22,6 +28,7 @@ boolean showHisto = false;
 int[] heightsOfBars = new int[256];
 int starting = 550;
 int ending = 1000;
+int initialFrameRate = 60;
 
 float[][] getMask() {
   switch(maskSelected) {
@@ -30,6 +37,7 @@ float[][] getMask() {
     case 3: return sharpen;
     case 4: return boxBlur;
     case 5: return gaussianBlur;
+    case 6: return gaussianBlur5;
     default: return edgeDetection;
   }
 }
@@ -51,6 +59,8 @@ void chargeMedia(boolean media, PGraphics canvas) {
 
 void setup() {
   size(1050, 600);
+  frameRate(initialFrameRate);
+  background(255);
   canvas_initial = createGraphics(450, 450);
   canvas_trans = createGraphics(450, 450);
   chargeMedia(showImage, canvas_initial);
@@ -163,6 +173,11 @@ void ConvolutionMask(PGraphics canvas, PImage image, float[][] convolutionMask) 
 void draw() {
   if (!showImage) {
     if (video.available()) {
+      background(255);
+      fill(0);
+      String frameRateText = "Computational Efficiency "+ frameRate/initialFrameRate*100 + "%";
+      textSize(18);
+      text(frameRateText, 50, 520);
       video.read();
       video.loadPixels();
       if(showGray) {
@@ -190,6 +205,7 @@ void mousePressed(){
     }
   }
 }
+
 void mouseReleased(){
   if(showHisto){
     if(mouseX>550 && mouseX<1000 && mouseY>50 && mouseY < 500){
@@ -255,6 +271,10 @@ void keyPressed() {
   }
   if(key == '5') {
     maskSelected = 5;
+    applyConvolution();
+  }
+  if(key == '6') {
+    maskSelected = 6;
     applyConvolution();
   }
 }
