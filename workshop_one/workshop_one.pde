@@ -155,7 +155,6 @@ void movieEvent(Movie m) {
   if(showMask) {
     m.loadPixels();
     ConvolutionMask(canvas_trans, m, edgeDetection2);
-    m.stop();
   }
 }
 
@@ -168,11 +167,6 @@ void draw() {
     image(canvas_initial, 50, 50);
   }
 }
-//Test function
-//void mouseClicked(){
-//  fill(color(100));
-//  circle(mouseX,mouseY, 50);
-//}
 
 //Handles mouse dragging across histogram
 void mousePressed(){
