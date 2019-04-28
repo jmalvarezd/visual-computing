@@ -2,7 +2,7 @@
 
 ## Propósito
 
-Introducir el análisis de imágenes/video en el lenguaje de [Processing](https://processing.org/).
+Introducir el análisis de imágenes/video en el lenguaje de [Processing](https://processing.org/), mediante el desarrollo de tareas basicas en transformacion de imagenes y videos.
 
 ## Tareas
 
@@ -22,7 +22,8 @@ Complete la tabla:
 
 | Integrante | github nick |
 |------------|-------------|
-|            |             |
+| Nicolas Campuzano Angulo | ncampuzano |
+| Juan Manuel Alvarez | jmalvarezd |
 
 ## Discusión
 
