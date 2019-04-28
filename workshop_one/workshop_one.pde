@@ -18,6 +18,10 @@ boolean showGray = false;
 boolean showMask = false;
 boolean showHisto = false;
 
+int[] heightsOfBars = new int[256];
+int starting = 550;
+int ending = 1000;
+
 void chargeMedia(boolean media, PGraphics canvas) {
   canvas.beginDraw();
   if(media) {
@@ -56,6 +60,55 @@ void ScaleOfGray(PGraphics canvas, PImage image) {
   canvas.image(image_gray, 0, 0, 450, 450);
   canvas.endDraw();
   image(canvas, 550, 50);
+}
+
+void showHistogram(PGraphics canvas, PImage image, boolean redrawSection){
+  canvas.beginDraw();
+  PImage image_duplicate;
+  image_duplicate = createImage(image.width, image.height, RGB);
+  int startingMapped = 0, endingMapped=255;
+  color redrawColor= color(0);
+  if(redrawSection){
+    startingMapped = int(map(starting, 550, 1000, 0, 255));
+    endingMapped = int(map(ending, 550, 1000, 0, 255));
+    redrawColor = color(0,255,0);
+  }
+  for (int i = 0; i < image.pixels.length; i++) {
+    image_duplicate.pixels[i] = image.pixels[i];
+    if(redrawSection){
+      float green = green(image.pixels[i]);
+      float blue = blue(image.pixels[i]);
+      float red = red(image.pixels[i]);
+      int brightnessOfPixel = color((green + blue + red)/3);
+      if(brightnessOfPixel > endingMapped || brightnessOfPixel < startingMapped){
+        image_duplicate.pixels[i] = redrawColor;
+      }
+    }
+  }
+  //PImage image_duplicate = image;
+  canvas.image(image_duplicate,0,0,450,450);
+  canvas.endDraw();
+  image(canvas,550,50);
+  
+  int[] hist = new int[256];
+  for (int i = 50; i < 50+canvas.width; i++) {
+    for (int j = 50; j < 50+canvas.height; j++) {
+      int bright = int(brightness(get(i, j)));
+      hist[bright]++; 
+    }
+  }
+  int histMax = max(hist);
+
+  stroke(0);
+  for (int i = 550; i < 550+canvas.width; i+=1) {
+    int which = int(map(i, 550, 550+canvas.width, 0, 255));
+    // Convert the histogram value to a location between 
+    // the bottom and the top of the picture
+    heightsOfBars[which] = int(map(hist[which], 0, histMax, canvas.height, 50));
+    if(i%2 == 0){
+      line(i, 50+canvas.height, i, heightsOfBars[which]);
+    }
+  }
 }
 
 void ConvolutionMask(PGraphics canvas, PImage image, float[][] convolutionMask) {
@@ -108,6 +161,46 @@ void draw() {
     image(canvas_initial, 50, 50);
   }
 }
+//Test function
+//void mouseClicked(){
+//  fill(color(100));
+//  circle(mouseX,mouseY, 50);
+//}
+
+//Handles mouse dragging across histogram
+void mousePressed(){
+  if(showHisto){
+    if(mouseX>550 && mouseX<1000 && mouseY>50 && mouseY < 500){
+      //print("mousex: " + mouseX + " mouse y: " + mouseY + "\n");
+      //int which = int(map(mouseX, 550, 1000, 0, 255));
+      starting = mouseX;
+      //print("heightofbars mousey: " + heightsOfBars[which] + "\n");
+    }
+  }
+}
+void mouseReleased(){
+  if(showHisto){
+    if(mouseX>550 && mouseX<1000 && mouseY>50 && mouseY < 500){
+      ending = mouseX;
+      for (int i = 550; i < 1000; i+=1) {
+        // Map i (from 0..img.width) to a location in the histogram (0..255)
+        int which = int(map(i, 550, 1000, 0, 255));
+        // Convert the histogram value to a location between 
+        // the bottom and the top of the picture
+        if(i%2 == 0){
+          if(i >= starting && i <= ending){
+            stroke(255);
+          }
+          else{
+            stroke(0);
+          }
+          line(i, 500, i, heightsOfBars[which]);
+          //redrawAfterHistogram();
+        }
+      }
+    }
+  }
+}
 
 void keyPressed() {
   if(key == 'm') {
@@ -138,6 +231,16 @@ void keyPressed() {
     showGray = false;
     showHisto = false;
     if(showImage) ConvolutionMask(canvas_trans, image, edgeDetection2);
+    //Video will be process in movieEvent
+  }
+  if(key == 'h') {
+    showImage = true;
+    showGray = false;
+    showMask = false;
+    showHisto = true;
+    canvas_trans = createGraphics(450, 450);
+    //chargeMedia(showImage, canvas_initial);
+    showHistogram(canvas_trans, image,false);
     //Video will be process in movieEvent
   }
 }
