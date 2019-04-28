@@ -73,18 +73,17 @@ void showHistogram(PGraphics canvas, PImage image, boolean redrawSection){
     endingMapped = int(map(ending, 550, 1000, 0, 255));
     redrawColor = color(0,255,0);
   }
+  //Duplicate the image. If this is a redraw, show only the selected pixels
   for (int i = 0; i < image.pixels.length; i++) {
     image_duplicate.pixels[i] = image.pixels[i];
     if(redrawSection){
-      float green = green(image.pixels[i]);
-      float blue = blue(image.pixels[i]);
-      float red = red(image.pixels[i]);
-      int brightnessOfPixel = color((green + blue + red)/3);
+      int brightnessOfPixel = int(brightness(image.pixels[i]));
       if(brightnessOfPixel > endingMapped || brightnessOfPixel < startingMapped){
         image_duplicate.pixels[i] = redrawColor;
       }
     }
   }
+  image_duplicate.updatePixels();
   //PImage image_duplicate = image;
   canvas.image(image_duplicate,0,0,450,450);
   canvas.endDraw();
@@ -106,6 +105,14 @@ void showHistogram(PGraphics canvas, PImage image, boolean redrawSection){
     // the bottom and the top of the picture
     heightsOfBars[which] = int(map(hist[which], 0, histMax, canvas.height, 50));
     if(i%2 == 0){
+      if(redrawSection){
+        if(i >= starting && i <= ending){
+            stroke(255);
+          }
+          else{
+            stroke(0);
+          }
+        }
       line(i, 50+canvas.height, i, heightsOfBars[which]);
     }
   }
@@ -182,22 +189,7 @@ void mouseReleased(){
   if(showHisto){
     if(mouseX>550 && mouseX<1000 && mouseY>50 && mouseY < 500){
       ending = mouseX;
-      for (int i = 550; i < 1000; i+=1) {
-        // Map i (from 0..img.width) to a location in the histogram (0..255)
-        int which = int(map(i, 550, 1000, 0, 255));
-        // Convert the histogram value to a location between 
-        // the bottom and the top of the picture
-        if(i%2 == 0){
-          if(i >= starting && i <= ending){
-            stroke(255);
-          }
-          else{
-            stroke(0);
-          }
-          line(i, 500, i, heightsOfBars[which]);
-          //redrawAfterHistogram();
-        }
-      }
+      showHistogram(canvas_trans, image,true);
     }
   }
 }
