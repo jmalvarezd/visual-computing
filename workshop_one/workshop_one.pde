@@ -179,7 +179,6 @@ void draw() {
       textSize(18);
       text(frameRateText, 50, 520);
       video.read();
-      video.loadPixels();
       if(showGray) {
         ScaleOfGray(canvas_trans, video);
       }
