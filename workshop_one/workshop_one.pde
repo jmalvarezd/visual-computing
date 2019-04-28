@@ -6,6 +6,7 @@ PGraphics canvas_trans;
 PImage image;
 Movie video;
 
+int maskSelected = 1;
 float[][] edgeDetection = {{0, 1, 0}, {1, -4, 1}, {0,1,0}};
 float[][] edgeDetection2 = {{-1, -1, -1}, {-1, 8, -1}, {-1,-1,-1}};
 float[][] sharpen = {{0, -1, 0}, {-1, 5, -1}, {0,-1,0}};
@@ -21,6 +22,17 @@ boolean showHisto = false;
 int[] heightsOfBars = new int[256];
 int starting = 550;
 int ending = 1000;
+
+float[][] getMask() {
+  switch(maskSelected) {
+    case 1: return edgeDetection;
+    case 2: return edgeDetection2;
+    case 3: return sharpen;
+    case 4: return boxBlur;
+    case 5: return gaussianBlur;
+    default: return edgeDetection;
+  }
+}
 
 void chargeMedia(boolean media, PGraphics canvas) {
   canvas.beginDraw();
@@ -146,25 +158,24 @@ void ConvolutionMask(PGraphics canvas, PImage image, float[][] convolutionMask) 
   image(canvas, 550, 50);
 }
 
-void movieEvent(Movie m) {
-  m.read();
-  if(showGray) {
-    m.loadPixels();
-    ScaleOfGray(canvas_trans, m);
-  }
-  if(showMask) {
-    m.loadPixels();
-    ConvolutionMask(canvas_trans, m, edgeDetection2);
-  }
-}
 
 
 void draw() {
   if (!showImage) {
-    canvas_initial.beginDraw();
-    canvas_initial.image(video, 0, 0, 450, 450);
-    canvas_initial.endDraw();
-    image(canvas_initial, 50, 50);
+    if (video.available()) {
+      video.read();
+      video.loadPixels();
+      if(showGray) {
+        ScaleOfGray(canvas_trans, video);
+      }
+      if(showMask) {
+        ConvolutionMask(canvas_trans, video, getMask()); 
+      }
+      canvas_initial.beginDraw();
+      canvas_initial.image(video, 0, 0, 450, 450);
+      canvas_initial.endDraw();
+      image(canvas_initial, 50, 50);
+    }
   }
 }
 
@@ -188,13 +199,19 @@ void mouseReleased(){
   }
 }
 
+void applyConvolution() {
+  showMask = true;
+  showGray = false;
+  showHisto = false;
+  if(showImage) ConvolutionMask(canvas_trans, image, getMask());
+  //Video will be process in movieEvent
+}
+
 void keyPressed() {
   if(key == 'm') {
     showImage = false;
     showGray = false;
-    showMask = false;
     showHisto = false;
-    canvas_trans = createGraphics(450, 450);
     chargeMedia(showImage, canvas_initial);
   }
   if(key == 'i') {
@@ -202,7 +219,6 @@ void keyPressed() {
     showGray = false;
     showMask = false;
     showHisto = false;
-    canvas_trans = createGraphics(450, 450);
     chargeMedia(showImage, canvas_initial);
   }
   if(key == 'g') {
@@ -212,21 +228,33 @@ void keyPressed() {
     if(showImage) ScaleOfGray(canvas_trans, image);
     //Video will be process in movieEvent
   }
-  if(key == 'c') {
-    showMask = true;
-    showGray = false;
-    showHisto = false;
-    if(showImage) ConvolutionMask(canvas_trans, image, edgeDetection2);
-    //Video will be process in movieEvent
-  }
   if(key == 'h') {
     showImage = true;
     showGray = false;
     showMask = false;
     showHisto = true;
-    canvas_trans = createGraphics(450, 450);
     //chargeMedia(showImage, canvas_initial);
     showHistogram(canvas_trans, image,false);
     //Video will be process in movieEvent
+  }
+  if(key == '1') {
+    maskSelected = 1;
+    applyConvolution();
+  }
+  if(key == '2') {
+    maskSelected = 2;
+    applyConvolution();
+  }
+  if(key == '3') {
+    maskSelected = 3;
+    applyConvolution();
+  }
+  if(key == '4') {
+    maskSelected = 4;
+    applyConvolution();
+  }
+  if(key == '5') {
+    maskSelected = 5;
+    applyConvolution();
   }
 }
