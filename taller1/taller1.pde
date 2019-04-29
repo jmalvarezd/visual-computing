@@ -132,7 +132,7 @@ void drawButtons(){
   text("Gray", buttonGrayX, buttonGrayAndHistoY, buttonSizeX,buttonSizeY);
   
   //button histo
-  if(!showHisto){
+  if(showImage && !showHisto){
     fill(buttonBaseColor);
   }
   else{
