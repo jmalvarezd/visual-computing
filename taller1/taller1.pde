@@ -131,8 +131,8 @@ void drawButtons(){
   fill(buttonTextColor);
   text("Gray", buttonGrayX, buttonGrayAndHistoY, buttonSizeX,buttonSizeY);
   
-  //button gray
-  if(showImage && !showHisto){
+  //button histo
+  if(!showHisto){
     fill(buttonBaseColor);
   }
   else{
@@ -387,8 +387,7 @@ void handleKeyPress(char pressed){
     showMask = false;
     showHisto = true;
     maskSelected = 0;
-    //chargeMedia(showImage, canvas_initial);
-    showHistogram(canvas_trans, image,false);
+    showHistogram(canvas_trans, image, false);
     //Video will be process in movieEvent
   }
   if(pressed == '1') {
