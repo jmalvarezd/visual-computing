@@ -44,8 +44,9 @@ int buttonVideoX = buttonImageX+buttonSizeX+buttonSeparationX;
 int buttonConvY = buttonImageAndVideoY+buttonSizeY+buttonSeparationY; //shared
 int[] buttonConvX = new int[7];
 
-int buttonGrayAndHistoY = buttonConvY+buttonSizeY+buttonSeparationY; //shared
-int buttonGrayX = buttonImageX;
+//int buttonGrayAndHistoY = buttonConvY+buttonSizeY+buttonSeparationY; //shared
+int buttonGrayAndHistoY = buttonImageAndVideoY; //shared
+int buttonGrayX = buttonVideoX+buttonSizeX+buttonSeparationX;;
 int buttonHistoX = buttonGrayX+buttonSizeX+buttonSeparationX ;
 
 float[][] getMask() {
