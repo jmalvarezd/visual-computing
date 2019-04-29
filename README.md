@@ -10,8 +10,6 @@ En cada una de las carpetas habrá un readme con más información referente al 
 
 ## Integrantes
 
-Complete la tabla:
-
 | Integrante | github nick |
 |------------|-------------|
 | Nicolas Campuzano Angulo | ncampuzano |
