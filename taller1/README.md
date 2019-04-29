@@ -35,6 +35,15 @@ Usando los botones de la parte inferior de la aplicacion, o los atajos de teclad
 
 Al entrar al modo pelicula, el programa automaticamente carga y reproduce data/landscape.mp4. Esto puede tomar algunos segundos la primera vez que se carga el archivo. Durante la reproduccion de la pelicula, podemos aplicar cualquiera de las mascaras de convolucion, el filtro blanco y negro, o regresar al modo imagen.
 
+### Eficiencia computacional
+
+Cuando estamos en modo película nos daremos cuenta se puede ver la eficiencia computacional dada la división entre
+el frame rate por dado al programa (60) divido entre el frame rate actual (obtenido de la variable `frameRate`), 
+podemos notar como la eficiencia cambia cuando se aplican diferentes máscaras de convolución y a su vez cuando 
+se aplica la escala de grises al video.
+
+Si se quiere cambiar en el programa el framerate inicial se debe cambiar en la variable `initialFrameRate`
+
 ### Mascaras de Convolucion
 
 El programa ofrece 6 mascaras de convolucion diferentes para la manipulacion de la imagen o el video que se este mostrando. 
@@ -48,6 +57,7 @@ Mediante el calculo del brillo de cada pixel del archivo original, podemos trans
 Se muestra un histograma del brillo de cada pixel. Arrastrando el mouse desde una barra inicial hasta una barra final del histograma modificara la imagen, mostrando en su color original todos los pixeles cuyo brillo esten dentro del rango seleccionado, y transformando en verde brillante todos los demas pixeles.
 
 (Unicamente disponible en modo imagen)
+
 
 ## Entrega
 
