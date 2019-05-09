@@ -22,7 +22,7 @@ Complete la tabla:
 
 | Ilusión | Categoria | Referencia | Tipo de interactividad (si aplica) | URL código base (si aplica) |
 |---------|-----------|------------|------------------------------------|-----------------------------|
-|         |Geométrica|https://michaelbach.de/ot/sze-missCornerCube/index.html| No aplica | No apllica  |
+|         |Geométrica|https://michaelbach.de/ot/sze-missCornerCube/index.html| No aplica | No aplica  |
 |         |Ópitica|https://michaelbach.de/ot/lum-herGridCurved/index.html| Al oprimir el mouse se curvan las líneas |No aplica|
 |         |           |            |                                    |                             |
 |         |           |            |                                    |                             |
