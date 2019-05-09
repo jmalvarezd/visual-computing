@@ -1,5 +1,5 @@
-boolean showIllusion1 = true;
-boolean showIllusion2 = false;
+boolean showIllusion1 = false;
+boolean showIllusion2 = true;
 boolean showIllusion3 = false;
 boolean showIllusion4 = false;
 boolean showIllusion5 = false;
@@ -20,7 +20,7 @@ void drawIllusion(){
     illusion1();
   }
   if(showIllusion2){
-    illusion1();
+    illusion2();
   }
   if(showIllusion3){
     illusion1();
