@@ -12,6 +12,7 @@ void setup(){
   background(255);
   canvas_initial = createGraphics(450, 450);
   drawIllusion();
+  
 }
 
 void drawIllusion(){
