@@ -10,9 +10,11 @@ void setup(){
   textSize(18);
   size(700, 700, P3D);
   background(255);
-  canvas_initial = createGraphics(450, 450);
+  canvas_initial = createGraphics(450, 450);  
+}
+
+void draw() {
   drawIllusion();
-  
 }
 
 void drawIllusion(){
