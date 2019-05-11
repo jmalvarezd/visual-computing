@@ -24,7 +24,7 @@ void drawCurveLines(int lineW, int squareW) {
   pushStyle();
   float completeCycle = TWO_PI*2/float(width);
   float waveSpeed = (width/squareW)/2;
-  float amplitude = 10;
+  float amplitude = 14;
   stroke(225);
   strokeWeight(0);
   fill(229);
@@ -54,14 +54,6 @@ void drawCurveLines(int lineW, int squareW) {
 }
 boolean drawedLines = false;
 boolean drawed = false;
-void mouseClicked() {
-  background(0);
-  if (drawedLines) {
-    drawCurveLines(lineW, squareW);
-  } else {
-    drawLinesToGrid(lineW, squareW);
-  }
-}
 void illusion2() {
   if (!drawedLines && !drawed) {
     background(0);

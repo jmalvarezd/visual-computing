@@ -17,6 +17,21 @@ void draw() {
   drawIllusion();
 }
 
+void mouseClicked() {
+  if (showIllusion2) {
+    if (drawedLines ) {
+      background(0);
+      drawCurveLines(lineW, squareW);
+    } else {
+      background(0);
+      drawLinesToGrid(lineW, squareW);
+    }
+  }
+  if (showIllusion3) {
+    circleDrawed = !circleDrawed;
+  }
+}
+
 void drawIllusion(){
   if(showIllusion1){
     illusion1();
@@ -25,7 +40,7 @@ void drawIllusion(){
     illusion2();
   }
   if(showIllusion3){
-    illusion1();
+    illusion3();
   }
   if(showIllusion4){
     illusion1();
