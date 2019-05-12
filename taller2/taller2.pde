@@ -46,3 +46,15 @@ void handleMouseClick(){ //Implement these functions if your illusion uses mouse
     default: break;
   }
 }
+
+void keyPressed() {
+  switch(key) {
+    case '1': showIllusion = 1; break;
+    case '2': drawed = false; showIllusion = 2; break;
+    case '3': showIllusion = 3; break;
+    case '4': showIllusion = 4; break;
+    case '5': showIllusion = 5; break;
+    case '6': showIllusion = 6; break;
+    default: showIllusion = 1; break;
+  }
+}
