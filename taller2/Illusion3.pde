@@ -39,3 +39,6 @@ void illusion3() {
   line((middleW-2), (middleH-2),(middleW+2), (middleH+2));
   line((middleW-2), (middleH+2),(middleW+2), (middleH-2));
 }
+void mcillusion3() {
+  circleDrawed = !circleDrawed;
+}

@@ -1,9 +1,4 @@
-boolean showIllusion1 = true;
-boolean showIllusion2 = true;
-boolean showIllusion3 = false;
-boolean showIllusion4 = false;
-boolean showIllusion5 = false;
-boolean showIllusion6 = false;
+int showIllusion = 4; // Change logic with state instead of boolans
 
 PGraphics canvas_initial;
 float x,y,z;
@@ -22,65 +17,32 @@ void setup(){
 }
 
 void draw() {
-  background(0);
   drawIllusion();
 }
 
 void mouseClicked() {
-  if (showIllusion2) {
-    if (drawedLines ) {
-      background(0);
-      drawCurveLines(lineW, squareW);
-    } else {
-      background(0);
-      drawLinesToGrid(lineW, squareW);
-    }
-  }
-  if (showIllusion3) {
-    circleDrawed = !circleDrawed;
-  }
-}
-
-void drawIllusion(){
-  if(showIllusion1){
-    illusion1();
-  }
-  if(showIllusion2){
-    illusion2();
-  }
-  if(showIllusion3){
-    illusion3();
-  }
-  if(showIllusion4){
-    illusion1();
-  }
-  if(showIllusion5){
-    illusion1();
-  }
-  if(showIllusion6){
-    illusion1();
-  }
-}void mouseClicked(){
   handleMouseClick();
 }
 
+void drawIllusion(){
+  switch(showIllusion) {
+    case 1: illusion1(); break;
+    case 2: illusion2(); break;
+    case 3: illusion3(); break;
+    case 4: illusion4(); break;
+    case 5: illusion4(); break;
+    case 6: illusion4(); break;
+    default: break;
+  }
+}
+
 void handleMouseClick(){ //Implement these functions if your illusion uses mouseclicks
-  if(showIllusion1){
-    mcillusion1();
-  }
-  if(showIllusion2){
-    mcillusion2();
-  }
-  if(showIllusion3){
-    mcillusion1();
-  }
-  if(showIllusion4){
-    mcillusion1();
-  }
-  if(showIllusion5){
-    mcillusion1();
-  }
-  if(showIllusion6){
-    mcillusion1();
+  switch(showIllusion) {
+    case 1: mcillusion1(); break;
+    case 2: mcillusion2(); break;
+    case 3: mcillusion3(); break;
+    case 5: illusion4(); break;
+    case 6: illusion4(); break;
+    default: break;
   }
 }

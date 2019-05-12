@@ -55,6 +55,13 @@ void drawCurveLines(int lineW, int squareW) {
 boolean drawedLines = false;
 boolean drawed = false;
 void illusion2() {
+  if(!drawed) {
+    background(0);
+    drawLinesToGrid(lineW, squareW);
+    drawed = true;
+  }
+}
+void mcillusion2() {
   background(0);
   if (drawedLines) {
     drawCurveLines(lineW, squareW);
@@ -62,4 +69,3 @@ void illusion2() {
     drawLinesToGrid(lineW, squareW);
   }
 }
-
