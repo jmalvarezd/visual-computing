@@ -14,7 +14,8 @@ Complete la tabla:
 
 | Integrante | github nick |
 |------------|-------------|
-|            |             |
+| Nicolas Campuzano Angulo | ncampuzano |
+| Juan Manuel Alvarez | jmalvarezd |
 
 ## Discusión
 
@@ -22,14 +23,29 @@ Complete la tabla:
 
 | Ilusión | Categoria | Referencia | Tipo de interactividad (si aplica) | URL código base (si aplica) |
 |---------|-----------|------------|------------------------------------|-----------------------------|
-|         |Geométrica|https://michaelbach.de/ot/sze-missCornerCube/index.html| No aplica | No aplica  |
-|         |Ópitica|https://michaelbach.de/ot/lum-herGridCurved/index.html| Al oprimir el mouse se curvan las líneas |No aplica|
-|         |           |            |                                    |                             |
-|         |           |            |                                    |                             |
+|         | Geométrica |https://michaelbach.de/ot/sze-missCornerCube/index.html| No aplica | No aplica  |
+| Curved Herman Grid | Luminancia y contraste | https://michaelbach.de/ot/lum-herGridCurved/index.html | Al dar click curvan las líneas | No aplica |
+| Frisén's Lazy Shadow | Luminancia y contraste | https://michaelbach.de/ot/lum-lazyShadow/index.html | Al dar click aparece un círculo con fondo | https://processing.org/examples/regularpolygon.html |
+| Stereokinetic Effect | Movimiento y tiempo | https://michaelbach.de/ot/mot-ske/index.html | No aplica | https://gist.github.com/atduskgreg/1516424 |
 |         |           |            |                                    |                             |
 |         |           |            |                                    |                             |
 
 2. Describa brevememente las referencias estudiadas y los posibles temas en los que le gustaría profundizar
+
+    ### Curved Herman Grid
+    Esta ilusión se basa en la ilusión de Herman Grid la cual indica que, al ver una rejilla de lineas blancas y cuadrados negros nuestros ojos hacen una suma de los colores en los puntos de intersección, apróximando un circulo negro. El  cual al ver fijamente la intersección desparece.
+
+    Por otra parte, cuando curvamos las líneas nuestros ojos dejan de hacer esa "suma de colores" ya que las intersecciones no son de angulo recto.
+
+    ### Frisén's Lazy Shadow
+    En la ilusión se pueden ver dos cosas: La primera vemos una sombra en el triangulo interno (blanco) y la segunda vemos los triangulos desfasados ya que nuestro sistema visual relaciona la velocidad con la luminancia, "entre más brille, más rápido".
+
+    Al dar click y tener un fondo más luminico estático, nos damos cuenta que no existe ni sombra y que las figueras están alineadas en su movimiento.
+
+    ### Stereokinetic Effect
+    La ilusión se basa en kinetic depth effect (KDE). KDE se refiere al fenomeno en el cual creamos una estructura tridimensional cuando un objeto en dos dimensiones se mueve. La creación de esta estructura tridimensional es causada por las diferencias que se van dando en la imagen bidimensional al ser rotada. Este efecto fue demostrado en 1950 por Wallach y O'Connell.
+
+
 
 ## Entrega
 
