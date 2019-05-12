@@ -1,19 +1,28 @@
-boolean showIllusion1 = false;
+boolean showIllusion1 = true;
 boolean showIllusion2 = false;
-boolean showIllusion3 = true;
+boolean showIllusion3 = false;
 boolean showIllusion4 = false;
 boolean showIllusion5 = false;
 boolean showIllusion6 = false;
 
 PGraphics canvas_initial;
+float x,y,z;
+import peasy.*;
+import peasy.org.apache.commons.math.*;
+import peasy.org.apache.commons.math.geometry.*;
+ 
+PeasyCam cam;
 void setup(){
+  x=0;
+  y=0;
+  z=0;
   textSize(18);
   size(700, 700, P3D);
   background(255);
-  canvas_initial = createGraphics(450, 450);  
 }
 
 void draw() {
+  background(0);
   drawIllusion();
 }
 
@@ -37,6 +46,27 @@ void drawIllusion(){
     illusion1();
   }
 }
-void illusion1(){
-  
+void mouseClicked(){
+  handleMouseClick();
+}
+
+void handleMouseClick(){
+  if(showIllusion1){
+    mcillusion1();
+  }
+  if(showIllusion2){
+    mcillusion2();
+  }
+  if(showIllusion3){
+    mcillusion1();
+  }
+  if(showIllusion4){
+    mcillusion1();
+  }
+  if(showIllusion5){
+    mcillusion1();
+  }
+  if(showIllusion6){
+    mcillusion1();
+  }
 }

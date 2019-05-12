@@ -54,7 +54,7 @@ void drawCurveLines(int lineW, int squareW) {
 }
 boolean drawedLines = false;
 boolean drawed = false;
-void mouseClicked() {
+void mcillusion2() {
   background(0);
   if (drawedLines) {
     drawCurveLines(lineW, squareW);
