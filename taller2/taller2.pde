@@ -1,5 +1,5 @@
 boolean showIllusion1 = true;
-boolean showIllusion2 = false;
+boolean showIllusion2 = true;
 boolean showIllusion3 = false;
 boolean showIllusion4 = false;
 boolean showIllusion5 = false;
@@ -45,12 +45,11 @@ void drawIllusion(){
   if(showIllusion6){
     illusion1();
   }
-}
-void mouseClicked(){
+}void mouseClicked(){
   handleMouseClick();
 }
 
-void handleMouseClick(){
+void handleMouseClick(){ //Implement these functions if your illusion uses mouseclicks
   if(showIllusion1){
     mcillusion1();
   }
