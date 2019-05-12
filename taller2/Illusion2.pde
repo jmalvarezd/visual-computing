@@ -55,9 +55,11 @@ void drawCurveLines(int lineW, int squareW) {
 boolean drawedLines = false;
 boolean drawed = false;
 void illusion2() {
-  if (!drawedLines && !drawed) {
-    background(0);
+  background(0);
+  if (drawedLines) {
+    drawCurveLines(lineW, squareW);
+  } else {
     drawLinesToGrid(lineW, squareW);
-    drawed = true;
   }
 }
+
