@@ -27,7 +27,7 @@ Complete la tabla:
 | Curved Herman Grid | Luminancia y contraste | https://michaelbach.de/ot/lum-herGridCurved/index.html | Al dar click curvan las líneas | No aplica |
 | Frisén's Lazy Shadow | Luminancia y contraste | https://michaelbach.de/ot/lum-lazyShadow/index.html | Al dar click aparece un círculo con fondo | https://processing.org/examples/regularpolygon.html |
 | Stereokinetic Effect | Movimiento y tiempo | https://michaelbach.de/ot/mot-ske/index.html | No aplica | https://gist.github.com/atduskgreg/1516424 |
-|         |           |            |                                    |                             |
+| Poggendorff Illusion | Geométrica | https://michaelbach.de/ot/ang-poggendorff/index.html | El tamaño de los rectangulos obstructores depende del mouse | No aplica |
 |         |           |            |                                    |                             |
 
 2. Describa brevememente las referencias estudiadas y los posibles temas en los que le gustaría profundizar
@@ -50,7 +50,7 @@ Complete la tabla:
     La ilusión se basa en kinetic depth effect (KDE). KDE se refiere al fenomeno en el cual creamos una estructura tridimensional cuando un objeto en dos dimensiones se mueve. La creación de esta estructura tridimensional es causada por las diferencias que se van dando en la imagen bidimensional al ser rotada. Este efecto fue demostrado en 1950 por Wallach y O'Connell.
 
     ### Poggendorff Illusion
-    La ilusion de Poggendorff fue descubierta en 1860 por el fisico JC Poggendorff. En esta ilusion, una linea continua diagonal que pasa tras un rectangulo vertical obstructor parece discontinua. En nuestra implementacion, multiples lineas diagonales paralelas pasan detras de multiples rectangulos verticales de tamaño variable. 
+    La ilusión de Poggendorff fue descubierta en 1860 por el fisico JC Poggendorff. En esta ilusion, una linea continua diagonal que pasa tras un rectangulo vertical obstructor parece discontinua. En nuestra implementación, multiples lineas diagonales paralelas pasan detras de multiples rectangulos verticales de tamaño variable. 
 
 ## Entrega
 
