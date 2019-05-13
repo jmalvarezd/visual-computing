@@ -1,4 +1,4 @@
-int showIllusion = 5; // Change logic with state instead of boolans
+int showIllusion = 6; // Change logic with state instead of boolans
 
 PGraphics canvas_initial;
 float x,y,z;
@@ -31,7 +31,7 @@ void drawIllusion(){
     case 3: illusion3(); break;
     case 4: illusion4(); break;
     case 5: illusion5(); break;
-    case 6: illusion4(); break;
+    case 6: illusion6(); break;
     default: break;
   }
 }
@@ -43,7 +43,7 @@ void handleMouseClick(){ //Implement these functions if your illusion uses mouse
     case 3: mcillusion3(); break;
     case 4: doNothing(); break;
     case 5: doNothing(); break;
-    case 6: doNothing(); break;
+    case 6: mcillusion6(); break;
     default: break;
   }
 }
@@ -55,7 +55,7 @@ void keyPressed() {
     case '3': showIllusion = 3; break;
     case '4': showIllusion = 4; break;
     case '5': showIllusion = 5; break;
-    case '6': showIllusion = 6; break;
+    case '6': background(255); showIllusion = 6; break;
     default: showIllusion = 1; break;
   }
 }
