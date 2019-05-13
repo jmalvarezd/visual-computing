@@ -49,7 +49,8 @@ Complete la tabla:
     ### Stereokinetic Effect
     La ilusión se basa en kinetic depth effect (KDE). KDE se refiere al fenomeno en el cual creamos una estructura tridimensional cuando un objeto en dos dimensiones se mueve. La creación de esta estructura tridimensional es causada por las diferencias que se van dando en la imagen bidimensional al ser rotada. Este efecto fue demostrado en 1950 por Wallach y O'Connell.
 
-
+    ### Poggendorff Illusion
+    La ilusion de Poggendorff fue descubierta en 1860 por el fisico JC Poggendorff. En esta ilusion, una linea continua diagonal que pasa tras un rectangulo vertical obstructor parece discontinua. En nuestra implementacion, multiples lineas diagonales paralelas pasan detras de multiples rectangulos verticales de tamaño variable. 
 
 ## Entrega
 
