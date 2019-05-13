@@ -38,12 +38,12 @@ void drawIllusion(){
 
 void handleMouseClick(){ //Implement these functions if your illusion uses mouseclicks
   switch(showIllusion) {
-    case 1: mcillusion1(); break;
+    case 1: doNothing(); break;
     case 2: mcillusion2(); break;
     case 3: mcillusion3(); break;
-    case 4: illusion4(); break;
-    case 5: illusion4(); break;
-    case 6: illusion4(); break;
+    case 4: doNothing(); break;
+    case 5: doNothing(); break;
+    case 6: doNothing(); break;
     default: break;
   }
 }
@@ -58,4 +58,7 @@ void keyPressed() {
     case '6': showIllusion = 6; break;
     default: showIllusion = 1; break;
   }
+}
+void doNothing(){
+  //I'm a function!
 }

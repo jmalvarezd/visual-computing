@@ -158,6 +158,3 @@ void illusion1(){
   }
 
 }
-void mcillusion1(){
-
-}
