@@ -23,7 +23,7 @@ Complete la tabla:
 
 | Ilusión | Categoria | Referencia | Tipo de interactividad (si aplica) | URL código base (si aplica) |
 |---------|-----------|------------|------------------------------------|-----------------------------|
-| Missing Corner Cube | Geométrica |https://michaelbach.de/ot/sze-missCornerCube/index.html| No aplica | No aplica  |
+| Missing Corner Cube | Geométrica |https://michaelbach.de/ot/sze-missCornerCube/index.html| No aplica | https://forum.processing.org/two/discussion/26854/how-do-i-fill-a-3d-pshape-cube-with-color  |
 | Curved Herman Grid | Luminancia y contraste | https://michaelbach.de/ot/lum-herGridCurved/index.html | Al dar click curvan las líneas | No aplica |
 | Frisén's Lazy Shadow | Luminancia y contraste | https://michaelbach.de/ot/lum-lazyShadow/index.html | Al dar click aparece un círculo con fondo | https://processing.org/examples/regularpolygon.html |
 | Stereokinetic Effect | Movimiento y tiempo | https://michaelbach.de/ot/mot-ske/index.html | No aplica | https://gist.github.com/atduskgreg/1516424 |
