@@ -28,14 +28,19 @@ Complete la tabla:
 | Frisén's Lazy Shadow | Luminancia y contraste | https://michaelbach.de/ot/lum-lazyShadow/index.html | Al dar click aparece un círculo con fondo | https://processing.org/examples/regularpolygon.html |
 | Stereokinetic Effect | Movimiento y tiempo | https://michaelbach.de/ot/mot-ske/index.html | No aplica | https://gist.github.com/atduskgreg/1516424 |
 | Poggendorff Illusion | Geométrica | https://michaelbach.de/ot/ang-poggendorff/index.html | El tamaño de los rectangulos obstructores depende del mouse | No aplica |
-|         |           |            |                                    |                             |
+| Müller-Lyer Illusion | Geométrica Tamaños | https://michaelbach.de/ot/sze-muelue/index.html | Mouse para testear precision  | No Aplica |
 
-2. Describa brevememente las referencias estudiadas y los posibles temas en los que le gustaría profundizar
+2. Para completar este taller nos basamos principalmente en el indice de ilusiones de Michael Bach, material muy relevante por sus demostraciones interactivas y sus explicaciones a profundidad.
+
+    Nos gustaria profundizar con respecto al modelado en 3 dimensiones y la iluminacion, pues la primera ilusion de nuestra lista fue muy interesante de construir.
+
+
     ### Missing Corner Cube
     
     Esta ilusion puede inmediatamente verse como un cubo con una esquina faltante. Sin embargo, tambien es posible ver dos interpretaciones alternativas: un cubo con un cubo mas pequeño como protuberancia en una de las esquinas, y una sala con un cubo en una de las esquinas.
     
     Esta ilusion es producto de la falta de pistas de iluminacion, combinado con una geometria especifica. La ilusion funciona con una perspectiva normal, pero es mas clara con la perspectiva usada actualmente: una perspectiva ortogonal. 
+    
     ### Curved Herman Grid
     Esta ilusión se basa en la ilusión de Herman Grid la cual indica que, al ver una rejilla de lineas blancas y cuadrados negros nuestros ojos hacen una suma de los colores en los puntos de intersección, apróximando un circulo negro. El  cual al ver fijamente la intersección desparece.
 
@@ -51,7 +56,10 @@ Complete la tabla:
 
     ### Poggendorff Illusion
     La ilusión de Poggendorff fue descubierta en 1860 por el fisico JC Poggendorff. En esta ilusion, una linea continua diagonal que pasa tras un rectangulo vertical obstructor parece discontinua. En nuestra implementación, multiples lineas diagonales paralelas pasan detras de multiples rectangulos verticales de tamaño variable. 
-
+    
+    ### Müller-Lyer Illusion
+    La ilusión de Müller-Lyer consiste en una linea horizontal con dos puntos de flecha, una en cada extremo. La idea consiste en comprobar nuestra precision en medicion de distancias y tamaños, y como esta precision puede ser manipulada. Las puntas de flecha alrededor de la linea causan esta imprecision, pues nuestro cerebro interpreta flechas entrantes como objetos mas lejanos, y flechas salientes como objetos mas cercanos, generando una perspectiva ilusoria.
+    
 ## Entrega
 
 * Hacer [fork](https://help.github.com/articles/fork-a-repo/) de la plantilla. Plazo: 12/5/19 a las 24h.
