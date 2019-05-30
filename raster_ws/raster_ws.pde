@@ -88,11 +88,19 @@ void triangleRaster() {
     strokeWeight(0);
     int leftMost = -1*int(pow(2,n)/2); //it's also topmost
     int rightMost = -leftMost;  //it's also bottommost
+    float area = pointLeftOfVertex(node.location(v1).x(), node.location(v1).y(), node.location(v2).x(), node.location(v2).y(), node.location(v3).x(), node.location(v3).y());
+
     for(int i = leftMost; i <= rightMost; i++) {
       for (int j = leftMost; j <= rightMost; j++) {
         Vector point = new Vector(i, j,0);
         if (isPointInsideTriangle(node.location(v1), node.location(v2), node.location(v3), point)) {
+          pushStyle();
+          float wa = pointLeftOfVertex(node.location(v2).x(), node.location(v2).y(), node.location(v3).x(), node.location(v3).y(), point.x(), point.y()) / area;
+          float wb = pointLeftOfVertex(node.location(v3).x(), node.location(v3).y(), node.location(v1).x(), node.location(v1).y(), point.x(), point.y()) / area;
+          float wc = pointLeftOfVertex(node.location(v1).x(), node.location(v1).y(), node.location(v2).x(), node.location(v2).y(), point.x(), point.y()) / area;
+          fill(255*wa, 255*wb, 255*wc);
           rect(i, j, 1, 1);
+          popStyle();
         }
       }
     }
