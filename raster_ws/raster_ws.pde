@@ -85,27 +85,33 @@ void triangleRaster() {
     pushStyle();
     stroke(255, 255, 0, 125);
     rectMode(CENTER);
-    strokeWeight(0.1);
+    strokeWeight(0);
     int leftMost = -1*int(pow(2,n)/2); //it's also topmost
     int rightMost = -leftMost;  //it's also bottommost
-    rect(0,rightMost,1,1);
-    rect(round(node.location(v1).x()), round(node.location(v1).y()),1,1);
-    rect(round(node.location(v2).x()), round(node.location(v2).y()),1,1);
-    rect(round(node.location(v3).x()), round(node.location(v3).y()),1,1);
+    for(int i = leftMost; i <= rightMost; i++) {
+      for (int j = leftMost; j <= rightMost; j++) {
+        Vector point = new Vector(i, j,0);
+        if (isPointInsideTriangle(node.location(v1), node.location(v2), node.location(v3), point)) {
+          rect(i, j, 1, 1);
+        }
+      }
+    }
+    // rect(round(node.location(v1).x()), round(node.location(v1).y()),1,1);
+    // rect(round(node.location(v2).x()), round(node.location(v2).y()),1,1);
+    // rect(round(node.location(v3).x()), round(node.location(v3).y()),1,1);
     popStyle();
   }
 }
 
-boolean isPointInsideTriangle(float ax,float ay,float bx,float by,
-                              float cx,float cy, float px, float py){
-  return  isPointLeftOfVertex(ax,ay,bx,by,px,py) &&
-          isPointLeftOfVertex(ax,ay,cx,cy,px,py) &&
-          isPointLeftOfVertex(bx,by,cx,cy,px,py);
+boolean isPointInsideTriangle(Vector a,Vector b,Vector c,Vector p){
+  return  pointLeftOfVertex(a.x(),a.y(),b.x(),b.y(),p.x(),p.y()) > 0 &&
+          pointLeftOfVertex(c.x(),c.y(),a.x(),a.y(),p.x(),p.y()) > 0 &&
+          pointLeftOfVertex(b.x(),b.y(),c.x(),c.y(),p.x(),p.y()) > 0 ;
 }
 
-boolean isPointLeftOfVertex(float ax,float ay,float bx,float by, float px, float py){
+float pointLeftOfVertex(float ax,float ay,float bx,float by, float px, float py){
   float determinant = ((ay-by)*px)+((bx-ax)*py)+(ax*by-ay*bx);
-  return determinant > 0; //If its exactly 0, the triangle is degenerate
+  return determinant; //If its exactly 0, the triangle is degenerate
 }
 
 void randomizeTriangle() {
@@ -114,7 +120,7 @@ void randomizeTriangle() {
   v1 = new Vector(random(low, high), random(low, high));
   v2 = new Vector(random(low, high), random(low, high));
   v3 = new Vector(random(low, high), random(low, high));
-  if(!isPointLeftOfVertex(v1.x(),v1.y(),v2.x(),v2.y(),v3.x(),v3.y())){
+  if(pointLeftOfVertex(v1.x(),v1.y(),v2.x(),v2.y(),v3.x(),v3.y()) <= 0){
     //The triangle is wound clockwise, swap two edges
     Vector v4 = v1;
     v1 = v2;

@@ -6,13 +6,13 @@
       0,
       1
     ],
-    "magnitude": 1.430167555809021,
+    "magnitude": 1,
     "position": [
       0,
       0,
-      886.81005859375
+      443.405029296875
     ]
   },
-  "radius": 512,
+  "radius": 256,
   "type": "ORTHOGRAPHIC"
 }
