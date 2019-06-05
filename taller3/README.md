@@ -30,7 +30,18 @@ Complete la tabla:
 
 ## Discusión
 
-Describa los resultados obtenidos. En el caso de anti-aliasing describir las técnicas exploradas, citando las referencias.
+Las coordenadas baricéntricas son un elemento matemático que nos posibilita conocer el lado en el que se encuentra un punto especifico dada una línea (dos puntos), esto es importante ya que al realizar la verificación por los tres puntos de un triángulo podemos conocer si el punto está dentro o fuera del triángulo. Conociendo la posición del punto podemos hacer rasterización de un triángulo de manera adecuada.
+
+Por otro lado, dado un triángulo y un punto, podemos obtener el área que forma este punto con cada combinación de par de vértices, el área es dada por el determinante de los tres puntos en cuestión. Cuando un área es negativa significa que el punto no está dentro del triángulo mientras que cuando un área es positiva podemos determinar su peso o incidencia en comparación con el área del triángulo dado. Esto es importante ya que al conocer su peso específico podemos darle un valor ponderado de alguna característica (el color, por ejemplo).
+
+Por último, la técnica utilizada para hacer anti-aliasing fue tomar cada pixel y subdividirlo en cuadrados más pequeños, verificar cada cuadrado si está dentro o fuera de triángulo con las coordenadas baricéntricas y multiplicamos la razón de cuadrados adentro del triángulo sobre cuadrados totales por el color Alpha, haciendo que los pixeles muy cercanos al borde se vean más “suaves”.
+
+Referencias: https://www.kotaku.com.au/2011/12/what-is-fxaa/ 
+
+https://fgiesen.wordpress.com/2013/02/06/the-barycentric-conspirac/
+
+https://www.scratchapixel.com/lessons/3d-basic-rendering/rasterization-practical-implementation/rasterization-stage
+
 
 ## Entrega
 
