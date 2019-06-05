@@ -86,27 +86,33 @@ void triangleRaster() {
     stroke(255, 255, 0, 125);
     rectMode(CENTER);
     strokeWeight(0);
-    int leftMost = -1*int(pow(2,n)/2); //it's also topmost
+    int leftMost = -1*int(pow(2,n+1)/2); //it's also topmost
     int rightMost = -leftMost;  //it's also bottommost
     float area = pointLeftOfVertex(node.location(v1).x(), node.location(v1).y(), node.location(v2).x(), node.location(v2).y(), node.location(v3).x(), node.location(v3).y());
-
-    for(int i = leftMost; i <= rightMost; i++) {
-      for (int j = leftMost; j <= rightMost; j++) {
+    for(float i = leftMost; i <= rightMost; i++) {
+      for (float j = leftMost; j <= rightMost; j++) {
         Vector point = new Vector(i, j,0);
-        if (isPointInsideTriangle(node.location(v1), node.location(v2), node.location(v3), point)) {
-          pushStyle();
-          float wa = pointLeftOfVertex(node.location(v2).x(), node.location(v2).y(), node.location(v3).x(), node.location(v3).y(), point.x(), point.y()) / area;
-          float wb = pointLeftOfVertex(node.location(v3).x(), node.location(v3).y(), node.location(v1).x(), node.location(v1).y(), point.x(), point.y()) / area;
-          float wc = pointLeftOfVertex(node.location(v1).x(), node.location(v1).y(), node.location(v2).x(), node.location(v2).y(), point.x(), point.y()) / area;
-          fill(255*wa, 255*wb, 255*wc);
-          rect(i, j, 1, 1);
-          popStyle();
+        float scale = 4;
+        int sum = 0;
+        float step = 1/scale;
+        for (float h = i - (1-step); h <= i + (1-step); h += 2*step) {
+          for (float l = j - (1-step); l <= j + (1-step); l += 2*step) {
+            Vector subPoint = new Vector(h, l,0);
+            if (isPointInsideTriangle(node.location(v1), node.location(v2), node.location(v3), subPoint)) {
+              sum += 1; // Weight of subsquares in pixel
+            }
+          }
         }
+        pushStyle();
+        float wa = pointLeftOfVertex(node.location(v2).x(), node.location(v2).y(), node.location(v3).x(), node.location(v3).y(), point.x(), point.y()) / area;
+        float wb = pointLeftOfVertex(node.location(v3).x(), node.location(v3).y(), node.location(v1).x(), node.location(v1).y(), point.x(), point.y()) / area;
+        float wc = pointLeftOfVertex(node.location(v1).x(), node.location(v1).y(), node.location(v2).x(), node.location(v2).y(), point.x(), point.y()) / area;
+        float anti = sum / (scale*scale);
+        fill(255*wa, 255*wb, 255*wc, 255*anti );
+        rect(i, j, 1, 1);
+        popStyle();
       }
     }
-    // rect(round(node.location(v1).x()), round(node.location(v1).y()),1,1);
-    // rect(round(node.location(v2).x()), round(node.location(v2).y()),1,1);
-    // rect(round(node.location(v3).x()), round(node.location(v3).y()),1,1);
     popStyle();
   }
 }

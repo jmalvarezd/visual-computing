@@ -25,7 +25,8 @@ Complete la tabla:
 
 | Integrante | github nick |
 |------------|-------------|
-|            |             |
+| Nicolas Campuzano Angulo | ncampuzano |
+| Juan Manuel Alvarez | jmalvarezd |
 
 ## Discusión
 
