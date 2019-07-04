@@ -1,11 +1,14 @@
 import processing.video.*;
+
+//Media
 Movie video;
+PImage image;
 
 // Shader!
 PShader convShader;
 
 // Masks
-int maskSelected = 2;
+int maskSelected = 1;
 float[][] edgeDetection = {{0, 1, 0}, {1, -4, 1}, {0, 1, 0}};
 float[][] edgeDetection2 = {{-1, -1, -1}, {-1, 8, -1}, {-1,-1,-1}};
 float[][] sharpen = {{0, -1, 0}, {-1, 5, -1}, {0,-1,0}};
@@ -25,6 +28,7 @@ int played = 0;
 // Use the shader to mask!
 boolean shader = false;
 boolean showMask = true;
+boolean isImage = true;
 
 // Initial frame rate to do a benchmark
 int initialFrameRate = 60;
@@ -34,6 +38,16 @@ float sumSoftFrameRate = 0;
 int aveSoftFrameRate = 0;
 float sumGPUFrameRate = 0;
 int aveGPUtFrameRate = 0;
+
+//Buttons
+Button b1 = new Button(50, 565, 1, "Video");
+Button b2 = new Button(200, 565, 1, "Software");
+Button b3 = new Button(350, 565, 1, "Edge Detection");
+Button b4 = new Button(500, 565, 1, "Edge Detection 2");
+Button b5 = new Button(50, 625, 1, "Sharpen");
+Button b6 = new Button(200, 625, 1, "Box Blur");
+Button b7 = new Button(350, 625, 1, "Gaussian Blur 3x3");
+Button b8 = new Button(500, 625, 1, "Gaussian Blur 5x5");
 
 float[][] getMask() {
   switch(maskSelected) {
@@ -75,7 +89,7 @@ PImage ConvolutionMask(PImage image, float[][] convolutionMask) {
 
 void drawResults() {
   pushStyle();
-  String title = "Results to ";
+  String title = "Results for ";
   switch(maskSelected) {
     case 1: title += "Edge Dectection"; break;
     case 2: title += "Edge Dectection2"; break;
@@ -117,7 +131,7 @@ void initVideo() {
   aveSoftFrameRate = 0;
   sumGPUFrameRate = 0;
   aveGPUtFrameRate = 0;
-  background(255);
+  background(120);
   video.loop();
   
 }
@@ -129,30 +143,48 @@ void keyPressed() {
 void handleKeyPress(char pressed){
   if(pressed == '1') {
     maskSelected = 1;
-    initVideo();
+    if (!isImage) {
+      initVideo();
+    }
   }
   if(pressed == '2') {
     maskSelected = 2;
-    initVideo();
+    if (!isImage) {
+      initVideo();
+    }
   }
   if(pressed == '3') {
     maskSelected = 3;
-    initVideo();
+    if (!isImage) {
+      initVideo();
+    }
   }
   if(pressed == '4') {
     maskSelected = 4;
-    initVideo();
+    if (!isImage) {
+      initVideo();
+    }
   }
   if(pressed == '5') {
     maskSelected = 5;
-    initVideo();
+    if (!isImage) {
+      initVideo();
+    }
   }
   if(pressed == '6') {
     maskSelected = 6;
-    initVideo();
+    if (!isImage) {
+      initVideo();
+    }
+  }
+  if(pressed == 's') {
+    shader = !shader;
+  }
+  if(pressed == 'm') {
+    showMask = !showMask;
   }
 }
-void showVideo(PImage image, float x, float y, float iWidth, float iHeight) {
+void showMedia(PImage image, float x, float y, float iWidth, float iHeight) {
   textureMode(NORMAL); // Normalize the coordinates in texture [0,1]
   PShape wd = createShape();
   wd.beginShape(QUAD_STRIP); // First 4 coordinates generate an rectangle the next two too.
@@ -182,40 +214,72 @@ void showVideo(PImage image, float x, float y, float iWidth, float iHeight) {
   }
   popStyle();
 } */
-
+void drawButtons() {
+  b1.draw();
+  b2.draw();
+  b3.draw();
+  b4.draw();
+  b5.draw();
+  b6.draw();
+  b7.draw();
+  b8.draw();
+}
 void setup() { 
-  size(1100, 700, P3D);
+  size(1100, 700, P2D);
+  image = loadImage("Leopard.jpg");
+  image.loadPixels();
   video = new Movie(this, "Landscape.mp4") {
     @ Override public void eosEvent() {
       super.eosEvent();
       myEoS();
     }
   };
-  background(255);
+  background(125);
   convShader = loadShader("convfrag.glsl");
   frameRate(initialFrameRate);
 }
 
 void draw() {
-  if (played == 2) {
+  if (isImage) {
+    background(125);
+    drawButtons();
+    float aux = frameRate/initialFrameRate*100;
+    if (shader) {
+      shader(convShader);
+      convShader.set("maskSelected", maskSelected);
+      convShader.set("showMask", showMask);
+      showMedia(image, 50, 50, 500, 500);
+    } else {
+      image(showMask ? ConvolutionMask(image, getMask()) : image, 50, 50, 500, 500);
+    }
+    pushStyle();
     resetShader();
-    drawResults();
-    played++;
-  }
-  if (video.available()) {
-     video.read();
-     float aux = frameRate/initialFrameRate*100;
-     if (shader) {
-       shader(convShader);
-       convShader.set("maskSelected", maskSelected);
-       convShader.set("showMask", showMask);
-       showVideo(video, 50, 50, 500, 500);
-       sumGPUFrameRate += aux;
-       aveGPUtFrameRate++;
-     } else {
-       image(ConvolutionMask(video, getMask()), 50, 50, 500, 500);
-       sumSoftFrameRate += aux;
-       aveSoftFrameRate++;
-     }
+    fill(0);
+    textSize(20);
+    text("Convolution mask by " + ((shader) ? "Hadware" : "Software"), 600, 100);
+    text("Frame rate : " + aux + " % ", 600, 150);
+    popStyle();
+  } else {
+    if (played == 2) {
+      resetShader();
+      drawResults();
+      played++;
+    }
+    if (video.available()) {
+       video.read();
+       float aux = frameRate/initialFrameRate*100;
+       if (shader) {
+         shader(convShader);
+         convShader.set("maskSelected", maskSelected);
+         convShader.set("showMask", showMask);
+         showMedia(video, 50, 50, 500, 500);
+         sumGPUFrameRate += aux;
+         aveGPUtFrameRate++;
+       } else {
+         image(showMask ? ConvolutionMask(video, getMask()) : video, 50, 50, 500, 500);
+         sumSoftFrameRate += aux;
+         aveSoftFrameRate++;
+       }
+    }
   }
 }
