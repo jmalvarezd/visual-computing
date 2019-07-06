@@ -101,34 +101,48 @@ String getMaskString() {
 
 void drawResults() {
   pushStyle();
-  String title = "Results for " + getMaskString();
-
   float hadPorcentage  = sumGPUFrameRate / aveGPUtFrameRate;
   float softPorcentage = sumSoftFrameRate / aveSoftFrameRate;
-  
-  fill(0);
-  textSize(25);
-  text(title, 50, 50);
-  textSize(20);
-  text("By software " + softPorcentage + " %", 625, 600);
-  text("By Hadware " + hadPorcentage + " %", 625, 625);
-  text("Difference " + (hadPorcentage - softPorcentage) + " %", 625, 700);
+  pushStyle();
+  fill(125);
+  noStroke();
+  rect(0, 0, 1100, 35);
+  fill(255);
+  textSize(19);
+  text("Results for " + getMaskString(), 450, 30);
+  text("By software " + softPorcentage + " %", 625, 580);
+  text("By Hadware " + hadPorcentage + " %", 625, 600);
+  text("Difference " + (hadPorcentage - softPorcentage) + " %", 625, 620);
+  text("Choose one mask to start the benchmark", 625, 640);
   popStyle();
 }
 
 
 void myEoS() {
-  if (played == 1) {  
+  resetShader();
+  if (played == 2 ) {  
+    println("Voy a parar");
     video.stop();
     played++;
   } else {
     played++;
+    println("Hadware");
+    background(125);
+    pushStyle();
+    fill(125);
+    noStroke();
+    rect(0, 0, 1100, 35);
+    fill(255);
+    textSize(19);
+    // text("Video with "+ getMaskString() +" mask by Hadware", 350, 30);
+    popStyle();
     shader = true;
   }
 }
 void initVideo() {
+  resetShader(); 
   video.stop();
-  played = 0;
+  played = 1;
   shader = false;
   sumSoftFrameRate = 0;
   aveSoftFrameRate = 0;
@@ -136,6 +150,10 @@ void initVideo() {
   aveGPUtFrameRate = 0;
   video.loop();
   background(125);
+  pushStyle();
+  textSize(19);
+  // text("Video with "+ getMaskString() +" mask by Software", 350, 30);
+  popStyle();
 }
 void mouseReleased(){
   if(b1.click()) {
@@ -217,9 +235,6 @@ void handleKeyPress(char pressed){
       initVideo();
     }
   }
-  if(pressed == 's') {
-    shader = !shader;
-  }
   if(pressed == 'm') {
     showMask = !showMask;
   }
@@ -293,9 +308,17 @@ void draw() {
     text("Frame rate : " + aux + " % ", 625, 600);
     popStyle();
   } else {
-    println(played);
-    if (played == 2) {
-      background(125);
+    if (played == 0) {
+      pushStyle();
+      fill(125);
+      noStroke();
+      rect(610, 550, 600, 200);
+      fill(255);
+      textSize(19);
+      text("Choose one mask to start the benchmark", 625, 580);
+      popStyle();
+    } else if (played == 3) {
+      drawButtons();
       drawResults();
       played++;
     } else if(video.available()) {
