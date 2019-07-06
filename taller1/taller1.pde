@@ -295,6 +295,7 @@ void draw() {
       image(canvas_initial, 50, 50);
     }
   }
+  println("Computational Efficiency "+ frameRate/initialFrameRate*100 + "%");
 }
 
 void handleButtonPress(int x, int y){

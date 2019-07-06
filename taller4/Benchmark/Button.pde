@@ -1,6 +1,8 @@
 class Button{
   int x,y,f;
   String text;
+  color background = color(0,56,80);
+  boolean isSelected = false;
   Button(int x, int y,int f, String text){    
     this.x = x;
     this.y = y;
@@ -14,7 +16,7 @@ class Button{
   }
   void draw() {
     pushStyle();
-    fill(color(0,56,80));
+    fill(background);
     rect(x, y, 125, 50, 7);
     textSize(12);
     fill(255);
