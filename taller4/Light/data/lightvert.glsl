@@ -39,17 +39,18 @@ void main() {
 
   for (int i = 0; i < lightCount; i++) {
     vec3 lightPos = lightPosition[i].xyz;
+    float falloff = 1.0/(1.0+( 0.000001*pow(distance(lightPos,ecPosition),2))); //Don't ask
     if (any(greaterThan(lightAmbient[i], zero_vec3))) {
       totalAmbient += lightAmbient[i];
     }
     if (any(greaterThan(lightSpecular[i], zero_vec3))) {
-      totalFrontDiffuse  += lightSpecular[i] * max(0.0, dot(reflect(-normalize(lightPos - ecPosition), ecNormal             ), cameraDirection));
-      totalBackDiffuse   += lightSpecular[i] * max(0.0, dot(reflect(-normalize(lightPos - ecPosition), ecNormal * -one_float), cameraDirection));
+      totalBackDiffuse  += falloff * lightSpecular[i] * max(0.0, dot(reflect(-normalize(lightPos - ecPosition), ecNormal             ), cameraDirection));
+      totalFrontDiffuse   += falloff * lightSpecular[i] * max(0.0, dot(reflect(-normalize(lightPos - ecPosition), ecNormal * -one_float), cameraDirection));
     }
     
     if (any(greaterThan(lightDiffuse[i], zero_vec3))) {
-      totalFrontSpecular += lightDiffuse[i] * max(0.0, dot(normalize(lightPos - ecPosition), ecNormal));
-      totalBackSpecular  += lightDiffuse[i] * max(0.0, dot(normalize(lightPos - ecPosition), ecNormal * -one_float));
+      totalBackSpecular += falloff * lightDiffuse[i] * max(0.0, dot(normalize(lightPos - ecPosition), ecNormal));
+      totalFrontSpecular  += falloff * lightDiffuse[i] * max(0.0, dot(normalize(lightPos - ecPosition), ecNormal * -one_float));
     }     
   }
 
