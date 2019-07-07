@@ -6,9 +6,9 @@ boolean drawAxes = false, bullseye = false;
 
 Node[] lights = new Node[8];
 color[] colors = new color[8];
-PShape can;
+PShape can, sphere;
 float angle;
-int nlights = 4;
+int nlights = 1;
 
 PShader lightShader;
 
@@ -33,6 +33,8 @@ void setup() {
   }  
   can = createCan(400, 600, 32);
   lightShader = loadShader("lightfrag.glsl", "lightvert.glsl");  
+  noStroke();
+  sphere = createShape(SPHERE,100);
 }
 
 void draw() {    
@@ -67,6 +69,8 @@ void draw() {
   rotateY(angle);  
   fill(0,0,0);
   shape(can);  
+  translate(width/2,0);
+  shape(sphere);
   angle += 0.01;
 }
 
@@ -81,7 +85,7 @@ PShape createCan(float r, float h, int detail) {
     float x = sin(i * angle);
     float z = cos(i * angle);
     float u = float(i) / detail;
-    sh.normal(x, 0, z);
+    sh.normal(-x, 0, -z);
     sh.vertex(x * r, -h/2, z * r, u, 0);
     sh.vertex(x * r, +h/2, z * r, u, 1);    
   }
