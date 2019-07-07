@@ -34,14 +34,12 @@ void setup() {
   can = createCan(400, 600, 32);
   lightShader = loadShader("lightfrag.glsl", "lightvert.glsl");  
   noStroke();
-  sphere = createShape(SPHERE,100);
+  sphere = createShape(BOX,100);
 }
 
 void draw() {    
   background(32);
-  ambientLight(64, 64, 64);
-  scene.drawAxes();
-  scene.render();
+  //ambientLight(64, 64, 64);
 
   shader(lightShader);
   
@@ -51,6 +49,8 @@ void draw() {
     //lightSpecular(red(colors[i]), green(colors[i]), blue(colors[i]));
     pointLight(red(colors[i]), green(colors[i]), blue(colors[i]), lightv.x(), lightv.y(), lightv.z());
   }
+  scene.drawAxes();
+  scene.render();
 
   translate(width/2, height/2);
   rotateY(angle);  
