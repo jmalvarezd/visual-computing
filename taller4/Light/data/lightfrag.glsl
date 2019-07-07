@@ -8,4 +8,5 @@ varying vec4 backVertColor;
 
 void main() {
   gl_FragColor = gl_FrontFacing ? vertColor : backVertColor;
+  
 }

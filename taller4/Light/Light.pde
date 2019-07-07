@@ -6,8 +6,9 @@ boolean drawAxes = false, bullseye = false;
 
 Node[] lights = new Node[8];
 color[] colors = new color[8];
-PShape can, sphere, box;
+PShape can;
 float angle;
+int nlights = 4;
 
 PShader lightShader;
 
@@ -31,17 +32,17 @@ void setup() {
     lights[i].cull(true);
   }  
   can = createCan(400, 600, 32);
-  lightShader = loadShader("lightfrag.glsl", "lightvert.glsl");
+  lightShader = loadShader("lightfrag.glsl", "lightvert.glsl");  
 }
 
 void draw() {    
-  background(0);
+  background(32);
+  ambientLight(64, 64, 64);
   scene.drawAxes();
   scene.render();
   float x1,y1,z1;
 
   shader(lightShader);
-  ambientLight(100,100,100);
   x1 = width/2;
   y1 = 1.5*height/4.0;
   z1 = 200;
@@ -50,11 +51,17 @@ void draw() {
   fill(255,255,0);
   noStroke();
   //sphere(10);
+  //shape(sphere);
   popMatrix();
   //pointLight(255, 0, 0, x1, y1, -z1);
-  pointLight(0, 255, 0,0, height/2, 0);
+  //pointLight(0, 255, 0,0, height/2, 0);
   // pointLight(0, 255, 0, width/2, height, 200);
-
+  for(int i = 0;i < nlights;i++){
+    lights[i].cull(false);
+    Vector lightv = lights[i].position();
+    //lightSpecular(red(colors[i]), green(colors[i]), blue(colors[i]));
+    pointLight(red(colors[i]), green(colors[i]), blue(colors[i]), lightv.x(), lightv.y(), lightv.z());
+  }
 
   translate(width/2, height/2);
   rotateY(angle);  
