@@ -44,8 +44,12 @@ void main() {
       totalAmbient += lightAmbient[i];
     }
     if (any(greaterThan(lightSpecular[i], zero_vec3))) {
-      totalBackSpecular  += falloff * lightSpecular[i] * max(0.0, dot(reflect(-normalize(lightPos - ecPosition), ecNormal * -one_float), cameraDirection));
-      totalFrontSpecular   += falloff * lightSpecular[i] * max(0.0, dot(reflect(-normalize(lightPos - ecPosition), ecNormal ), cameraDirection));
+      totalBackSpecular +=  falloff * 
+                            lightSpecular[i] * 
+                            pow(max(0.0, dot(reflect(-normalize(lightPos - ecPosition), ecNormal * -one_float), cameraDirection)),8);
+      totalFrontSpecular += falloff * 
+                            lightSpecular[i] * 
+                            pow(max(0.0, dot(reflect(-normalize(lightPos - ecPosition), ecNormal ), cameraDirection)),8);
     }
     
     if (any(greaterThan(lightDiffuse[i], zero_vec3))) {

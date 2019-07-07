@@ -42,22 +42,9 @@ void draw() {
   ambientLight(64, 64, 64);
   scene.drawAxes();
   scene.render();
-  float x1,y1,z1;
 
   shader(lightShader);
-  x1 = width/2;
-  y1 = 1.5*height/4.0;
-  z1 = 200;
-  pushMatrix();
-  translate(x1, y1, z1);
-  fill(255,255,0);
-  noStroke();
-  //sphere(10);
-  //shape(sphere);
-  popMatrix();
-  //pointLight(255, 0, 0, x1, y1, -z1);
-  //pointLight(0, 255, 0,0, height/2, 0);
-  // pointLight(0, 255, 0, width/2, height, 200);
+  
   for(int i = 0;i < nlights;i++){
     lights[i].cull(false);
     Vector lightv = lights[i].position();
