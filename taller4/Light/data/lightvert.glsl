@@ -69,5 +69,4 @@ void main() {
   backVertColor = vec4(totalAmbient, 0) * ambient + 
                   vec4(totalBackDiffuse, 1) * color + 
                   vec4(totalBackSpecular, 0) * specular; 
-  vertTexCoord = texMatrix * vec4(texCoord, 1.0, 1.0);    
 }

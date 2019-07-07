@@ -8,11 +8,9 @@ Node[] lights = new Node[8];
 color[] colors = new color[8];
 PShape can, sphere;
 float angle;
-int nlights = 1;
+int nlights = 2;
 
 PShader lightShader;
-PImage texture;
-PImage normalMap;
 
 void setup() {
   size(1000, 700, P3D);
@@ -22,7 +20,7 @@ void setup() {
   //scene.togglePerspective();
   scene.fit();
   
-  colors[0] = color(255,255, 255); 
+  colors[0] = color(0,0, 255); 
   colors[1] = color(255, 97, 3);  
   for(int i = 2;i < 8;i++){
     colors[i] = color(random(255), random(255), random(255));
@@ -36,12 +34,7 @@ void setup() {
   can = createCan(400, 600, 32);
   lightShader = loadShader("lightfrag.glsl", "lightvert.glsl");  
   noStroke();
-  sphere = createShape(BOX,500);
-  texture = loadImage("brickwall.jpg");
-  lightShader.set("textureBrick", texture);
-  //normalMap = loadImage("brickwall_normal.jpg");
-  //lightShader.set("normalMap", normalMap);
-
+  sphere = createShape(SPHERE,50);
 }
 
 void draw() {    
@@ -60,11 +53,11 @@ void draw() {
   scene.render();
 
   translate(width/2, height/2);
-  //rotateY(angle);  
+  rotateY(angle);  
   fill(0,0,0);
-  shape(sphere);
-  //shape(can);  
+  shape(can);  
   translate(width/2,0);
+  shape(sphere);
   angle += 0.01;
 }
 
