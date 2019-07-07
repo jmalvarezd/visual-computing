@@ -2,6 +2,7 @@ uniform mat4 modelview;
 uniform mat4 transform;
 uniform mat4 transformMatrix;
 uniform mat3 normalMatrix;
+uniform mat4 texMatrix;
 
 uniform vec4 lightPosition[8];
 uniform int lightCount;
@@ -14,12 +15,15 @@ attribute vec4 color;
 attribute vec4 ambient;
 attribute vec4 specular;
 attribute vec3 normal;
+attribute vec2 texCoord;
 
 const float one_float = 1.0;
 const vec3 zero_vec3 = vec3(0);
 
 varying vec4 vertColor;
 varying vec4 backVertColor;
+varying vec4 vertTexCoord;
+
 
 void main() {
   gl_Position = transformMatrix * position;
@@ -65,4 +69,5 @@ void main() {
   backVertColor = vec4(totalAmbient, 0) * ambient + 
                   vec4(totalBackDiffuse, 1) * color + 
                   vec4(totalBackSpecular, 0) * specular; 
+  vertTexCoord = texMatrix * vec4(texCoord, 1.0, 1.0);    
 }
