@@ -15,7 +15,7 @@ PImage texture;
 PImage normalMap;
 
 void setup() {
-  size(1000, 800, P3D);
+  size(1000, 700, P3D);
   
   scene= new Scene(this);
   scene.setFrustum(new Vector(0, 0, 0), new Vector(800, 800, 800));
