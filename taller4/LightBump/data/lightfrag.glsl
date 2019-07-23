@@ -37,7 +37,8 @@ void main() {
   if(bump){
     normal = texture2D(normalMap, vertTexCoord.xy).rgb*2.0 - 1.0;
     normal = normalize(normal);
-    normal.y = -normal.y;
+    //normal.y = -normal.y;
+    normal.x = -normal.x;
   }      
   // Light calculations
   vec3 totalAmbient = vec3(0, 0, 0);

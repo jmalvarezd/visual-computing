@@ -46,7 +46,7 @@ void draw() {
   for(int i = 0;i < nlights;i++){
     lights[i].cull(false);
     Vector lightv = lights[i].position();
-    //lightSpecular(red(colors[i]), green(colors[i]), blue(colors[i]));
+    lightSpecular(red(colors[i]), green(colors[i]), blue(colors[i]));
     pointLight(red(colors[i]), green(colors[i]), blue(colors[i]), lightv.x(), lightv.y(), lightv.z());
   }
   scene.drawAxes();
